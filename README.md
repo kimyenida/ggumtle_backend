@@ -9,7 +9,8 @@
 ![image](https://github.com/our-bbang/backend_repo/assets/81863701/95cf6f76-308c-4d02-9c87-ce417d458d58)
 
 위의 이미지처럼 나오면 성공
-5. 크롬에 localhost:3000이라고 입력하여 메세지가 잘 나오면 성공 끝-!
+
+4. 크롬에 localhost:3000이라고 입력하여 메세지가 잘 나오면 성공 끝-!
 
 ## 로그인 api, 회원가입 api
 로그인 api : localhost:3000/login
