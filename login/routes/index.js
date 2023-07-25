@@ -24,7 +24,7 @@ router.get('/', function(req, res, next) {
 // });
 
 
-// 회원가입 api
+// 회원가입 API
 router.post('/reg',async(req,res)=>{
   var id = req.body.user_id;
   var pwd = req.body.user_pwd;
@@ -43,7 +43,7 @@ router.post('/reg',async(req,res)=>{
 });
 
 
-//로그인 api
+//로그인 API
 router.post('/login', async function(req, res){
   var id = req.body.user_id;
   var pwd = req.body.user_pwd;
