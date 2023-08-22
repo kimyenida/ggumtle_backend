@@ -220,7 +220,12 @@ router.post("/ask/report", async (req, res) => {
         // console.log(response_s.BucketList.MainKeyword1.Details.Detail1);
 
        // res.json({ response: response_s });
-      } else {
+      } 
+      if (err instanceof NullDataException) {
+        return res
+          .status(statusCode.BAD_REQUEST)
+          .send(util.fail(statusCode.NO_CONTENT, err.message));
+      }else {
         res.status(500).json({ error: "fail......" });
       }
     } 
