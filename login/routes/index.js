@@ -18,8 +18,8 @@ require('dotenv').config();
 const { Configuration, OpenAIApi } = require("openai");
 
 const configiration = new Configuration({
-    organization: 'org-0uaQLaArF3m5pgctUePtq5OR',
-    apiKey: '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'
+    organization: process.env.OPEN_API_KEY_OR,
+    apiKey: process.env.OPEN_API_KEY
 });
 
 console.log('<<--- Hello Node.js ---->>');
@@ -237,6 +237,11 @@ router.get("/ask/translate", async (req, res) => {
   //var job = req.body.job;
   var bucket = req.bucket;
 
+  
+  const allowedOrigins = ["http://localhost:3000, https://ggumtle.vercel.app"];
+  const origin = req.headers.origin; 
+  var allowUrl;
+
   var propmt_sentence = `
   이 사람의 성별은 '${gender}'이고, 버킷리스트는 '${bucket}'이다.
   앞 문장을 영어로 번역해줘`;
@@ -244,7 +249,8 @@ router.get("/ask/translate", async (req, res) => {
   const response = await runGPT35_t(propmt_sentence);
 
     if (response) {
-      res.setHeader('Access-Control-Allow-origin', "http://localhost:3000","https://ggumtle.vercel.app");
+      res.setHeader('Access-Control-Allow-origin', "https://ggumtle.vercel.app");
+      res.setHeader('Content-Type', 'application/json; charset="utf-8"'); // CORS 허용 
       res.setHeader('Access-Control-Allow-Credentials', true); // 쿠키 주고받기 허용
       res.json({ response: response });
     } else {
