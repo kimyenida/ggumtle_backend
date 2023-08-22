@@ -10,8 +10,8 @@ require('dotenv').config();
 const { Configuration, OpenAIApi } = require("openai");
 
 const configiration = new Configuration({
-    organization: process.env.OPEN_API_KEY_OR,
-    apiKey: process.env.OPEN_API_KEY
+    organization: 'org-0uaQLaArF3m5pgctUePtq5OR',
+    apiKey: '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'
 });
 
 console.log('<<--- Hello Node.js ---->>');
@@ -188,7 +188,7 @@ router.post('/login', async function(req, res){
 });
 
 
-router.get("/ask/report", async (req, res) => {
+router.post("/ask/report", async (req, res) => {
   var gender = req.body.gender;
   var age = req.body.age;
   var job = req.body.job;
@@ -219,7 +219,7 @@ router.get("/ask/report", async (req, res) => {
   
 );
 
-router.get("/ask/translate", async (req, res) => {
+router.post("/ask/translate", async (req, res) => {
   var gender = req.body.gender;
   //var age = req.body.age;
   //var job = req.body.job;
@@ -238,5 +238,6 @@ router.get("/ask/translate", async (req, res) => {
     }
   } 
 
+  
 );
 module.exports = router;
