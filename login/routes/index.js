@@ -142,6 +142,9 @@ const runGPT35 = async (prompt) => {
       frequency_penalty : 0.0,
       presence_penalty: 0.0,
       max_tokens : 1000,
+      headers:
+       { Authorization: `Bearer +${process.env.OPENAI_API_KEY}`}
+  
       
   });
   var output_schema = response.data.choices[0].message.function_call.arguments;
@@ -151,6 +154,16 @@ const runGPT35 = async (prompt) => {
 };
 
 const runGPT35_t = async (prompt) => {
+  const response = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: prompt }],
+      headers:
+      { Authorization: `Bearer +${process.env.OPENAI_API_KEY}`}
+  });
+  return response.data.choices[0].message.content;
+};
+
+const runGPT35_b = async (prompt) => {
   const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
@@ -211,7 +224,7 @@ router.get("/ask/report", async (req, res) => {
       세부 목표를 4개씩 한글로 json형태로 생성해줘`;
   
       console.log(propmt_sentence);
-      const response = await runGPT35(propmt_sentence);
+      const response = await runGPT35_b(propmt_sentence);
       const response_s = response.content;
   
         if (response) {
