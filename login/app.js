@@ -8,11 +8,11 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-const cors = require('cors');
+// const cors = require('cors');
 
-app.use(cors({
-  origin: "http://localhost:3000",
-}));
+// app.use(cors({
+//   origin: "http://localhost:3000",
+// }));
 
 console.log("시작시작");
 
