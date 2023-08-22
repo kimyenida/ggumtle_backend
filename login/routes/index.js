@@ -1,6 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
+const cors = require('cors');
+
+app.use(cors({
+  origin: '*',
+}));
+
+
 require('dotenv').config();
 
 // const maria = require('../database/connect/mariadb');
@@ -238,6 +245,6 @@ router.post("/ask/translate", async (req, res) => {
     }
   } 
 
-  
+
 );
 module.exports = router;

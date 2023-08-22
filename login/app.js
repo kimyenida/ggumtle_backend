@@ -8,6 +8,11 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+const cors = require('cors');
+
+app.use(cors({
+  origin: '*',
+}));
 
 // mariaDB연결 부분
 //const maria =require('./database/connect/mariadb');
