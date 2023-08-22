@@ -11,10 +11,10 @@ var app = express();
 const cors = require('cors');
 
 app.use(cors({
-  origin: '*',
-  credential: true, 
+  origin: "http://localhost:3000",
 }));
 
+console.log("시작시작");
 
 // mariaDB연결 부분
 //const maria =require('./database/connect/mariadb');
@@ -50,11 +50,11 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.post("/ask/report/api", async (req, res) => {
-  var gender = req.body.gender;
-  var age = req.body.age;
-  var job = req.body.job;
-  var bucket = req.body.bucket;
+app.get("/ask/report/api", cors(),async (req, res) => {
+  var gender = req.gender;
+  var age = req.age;
+  var job = req.job;
+  var bucket = req.bucket;
 
     var propmt_sentence = 
     `직업: '${job}', 나이: '${age}',
@@ -81,5 +81,16 @@ app.post("/ask/report/api", async (req, res) => {
     } 
   
 );
+
+app.get("/usus", (req, res) => {
+
+  //Hello World 데이터 반환
+  res.send("Hello World");
+});
+
+app.get('*', function(req, res){
+  res.status(404).send('what???');
+});
+
 
 module.exports = app;

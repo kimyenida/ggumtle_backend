@@ -4,9 +4,10 @@ var router = express.Router();
 const cors = require('cors');
 
 var app = express();
-app.use(cors({
-  origin: '*',
-}));
+// router.use(cors({
+//   origin: "http://localhost:3000",
+//   credential: "true" 
+// }));
 
 require('dotenv').config();
 
@@ -195,7 +196,7 @@ router.post('/login', async function(req, res){
 });
 
 
-router.get("/ask/report", async (req, res) => {
+router.get("/ask/report",cors(), async (req, res) => {
   var gender = req.gender;
   var age = req.age;
   var job = req.job;
@@ -212,6 +213,8 @@ router.get("/ask/report", async (req, res) => {
 
       if (response) {
         const user = JSON.parse(response) // json.parse로 파싱
+        res.setHeader('Access-Control-Allow-origin', "http://localhost:3000","https://ggumtle.vercel.app");
+        res.setHeader('Access-Control-Allow-Credentials', true); // 쿠키 주고받기 허용
         res.send(user);
         //res.json(user);
         console.log(user.BucketList.MainKeyword1.Value)
@@ -228,11 +231,11 @@ router.get("/ask/report", async (req, res) => {
   
 );
 
-router.post("/ask/translate", async (req, res) => {
-  var gender = req.body.gender;
+router.get("/ask/translate", async (req, res) => {
+  var gender = req.gender;
   //var age = req.body.age;
   //var job = req.body.job;
-  var bucket = req.body.bucket;
+  var bucket = req.bucket;
 
   var propmt_sentence = `
   이 사람의 성별은 '${gender}'이고, 버킷리스트는 '${bucket}'이다.
@@ -241,6 +244,8 @@ router.post("/ask/translate", async (req, res) => {
   const response = await runGPT35_t(propmt_sentence);
 
     if (response) {
+      res.setHeader('Access-Control-Allow-origin', "http://localhost:3000","https://ggumtle.vercel.app");
+      res.setHeader('Access-Control-Allow-Credentials', true); // 쿠키 주고받기 허용
       res.json({ response: response });
     } else {
       res.status(500).json({ error: "fail......" });
