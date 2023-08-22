@@ -8,7 +8,6 @@ app.use(cors({
   origin: '*',
 }));
 
-
 require('dotenv').config();
 
 // const maria = require('../database/connect/mariadb');
@@ -213,7 +212,8 @@ router.post("/ask/report", async (req, res) => {
 
       if (response) {
         const user = JSON.parse(response) // json.parse로 파싱
-        res.json(user);
+        res.send(user);
+        //res.json(user);
         console.log(user.BucketList.MainKeyword1.Value)
         console.log(user.BucketList.MainKeyword1.Details.Detail1)
         // console.log(response_s.BucketList.MainKeyword1.Value);
