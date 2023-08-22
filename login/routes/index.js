@@ -196,7 +196,7 @@ router.post('/login', async function(req, res){
 });
 
 
-router.get("/ask/report",cors(), async (req, res) => {
+router.get("/ask/report", async (req, res) => {
   var gender = req.gender;
   var age = req.age;
   var job = req.job;
