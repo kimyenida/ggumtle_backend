@@ -267,4 +267,11 @@ router.get("/ask/translate", async (req, res) => {
 
 
 );
+
+
+router.get("/usus", (req, res) => {
+
+  //Hello World 데이터 반환
+  res.send("Hello World");
+});
 module.exports = router;
