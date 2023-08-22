@@ -50,38 +50,6 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.get("/ask/report/api", cors(),async (req, res) => {
-  var gender = req.gender;
-  var age = req.age;
-  var job = req.job;
-  var bucket = req.bucket;
-
-    var propmt_sentence = 
-    `직업: '${job}', 나이: '${age}',
-    성별:'${gender}' 버킷리스트: '${bucket}'버킷리스트를 이루기 위해 
-    필요한 메인 키워드 4개와 각각의 메인 키워드를 이루기 위한 
-    세부 목표를 4개씩 json형태로 생성해줘`;
-
-    const response = await runGPT35(propmt_sentence);
-    const response_s = response.content;
-
-      if (response) {
-        const user = JSON.parse(response) // json.parse로 파싱
-        res.send(user);
-        //res.json(user);
-        console.log(user.BucketList.MainKeyword1.Value)
-        console.log(user.BucketList.MainKeyword1.Details.Detail1)
-        // console.log(response_s.BucketList.MainKeyword1.Value);
-        // console.log(response_s.BucketList.MainKeyword1.Details.Detail1);
-
-       // res.json({ response: response_s });
-      } else {
-        res.status(500).json({ error: "fail......" });
-      }
-    } 
-  
-);
-
 app.get("/usus", (req, res) => {
 
   //Hello World 데이터 반환
