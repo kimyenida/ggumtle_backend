@@ -230,10 +230,11 @@ router.get("/ask/report", async (req, res) => {
       console.log(propmt_sentence);
       const response = await runGPT35(propmt_sentence);
       const response_s = response.content;
+      const allowedOrigins = ["http://localhost:3000, https://ggumtle.vercel.app"];
   
         if (response) {
           const user = JSON.parse(response) // json.parse로 파싱
-          res.setHeader('Access-Control-Allow-origin', "http://localhost:3000");
+          res.setHeader('Access-Control-Allow-origin', req.headers.origin);
           // res.setHeader('Access-Control-Allow-origin', "http://localhost:3000","https://ggumtle.vercel.app");
           res.setHeader('Access-Control-Allow-Credentials', true); // 쿠키 주고받기 허용
           res.json(user);
@@ -275,7 +276,7 @@ router.get("/ask/translate", async (req, res) => {
     const response = await runGPT35_t(propmt_sentence);
   
       if (response) {
-        res.setHeader('Access-Control-Allow-origin', "http://localhost:3000");
+        res.setHeader('Access-Control-Allow-origin',  req.headers.origin);
         res.setHeader('Content-Type', 'application/json; charset="utf-8"'); // CORS 허용 
         res.setHeader('Access-Control-Allow-Credentials', true); // 쿠키 주고받기 허용
         res.json({ response: response });
