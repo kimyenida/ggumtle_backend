@@ -19,4 +19,4 @@ const queryreturn = (query) => {
     })
 }
 
-module.exports = conn;
+module.exports = {queryreturn};
