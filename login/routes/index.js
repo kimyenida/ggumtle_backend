@@ -188,7 +188,7 @@ router.post('/login', async function(req, res){
 });
 
 
-router.get("/ask/report", async (req, res) => {
+router.post("/ask/report", async (req, res) => {
   var gender = req.body.gender;
   var age = req.body.age;
   var job = req.body.job;
@@ -219,7 +219,7 @@ router.get("/ask/report", async (req, res) => {
   
 );
 
-router.get("/ask/translate", async (req, res) => {
+router.post("/ask/translate", async (req, res) => {
   var gender = req.body.gender;
   //var age = req.body.age;
   //var job = req.body.job;
@@ -238,5 +238,6 @@ router.get("/ask/translate", async (req, res) => {
     }
   } 
 
+  
 );
 module.exports = router;
