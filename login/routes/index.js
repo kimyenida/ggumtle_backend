@@ -18,7 +18,7 @@ require('dotenv').config();
 const { Configuration, OpenAIApi } = require("openai");
 
 const configiration = new Configuration({
-    organization: process.env.OPEN_API_KEY_OR,
+    organization:process.env.OPEN_API_KEY_OR,
     apiKey: process.env.OPEN_API_KEY
 });
 
@@ -197,7 +197,7 @@ router.post('/login', async function(req, res){
 
 
 router.get("/ask/report", async (req, res) => {
-  try{ var gender = req.gender;
+  try{var gender = req.gender;
     var age = req.age;
     var job = req.job;
     var bucket = req.bucket;
@@ -226,8 +226,9 @@ router.get("/ask/report", async (req, res) => {
         } 
         else {
           res.status(500).json({ error: "fail......" });
-        }}catch(e){console.error(e);}
- 
+        }
+ }catch(e){console.error(e);}
+   
     } 
   
 );
