@@ -13,7 +13,6 @@ var app = express();
 
 
 const maria = require('../database/connect/mariadb');
-maria.connect();
 
 // maria.queryreturn("show tables;").then(value=> {console.log(value)})
 
