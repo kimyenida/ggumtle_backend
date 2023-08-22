@@ -141,7 +141,10 @@ const runGPT35 = async (prompt) => {
       top_p:1.0 ,
       frequency_penalty : 0.0,
       presence_penalty: 0.0,
-      max_tokens : 1000
+      max_tokens : 1000,
+      headers: {
+        'Authorization': `Bearer ${process.env.OPENAI_SECRET_KEY}`,
+      }
   });
   var output_schema = response.data.choices[0].message.function_call.arguments;
   return output_schema;
