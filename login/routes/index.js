@@ -1,5 +1,7 @@
+require('dotenv').config();
 var express = require('express');
 var router = express.Router();
+
 
 //const cors = require('cors');
 
@@ -9,21 +11,26 @@ var app = express();
 //   credential: "true" 
 // }));
 
-require('dotenv').config();
 
-// const maria = require('../database/connect/mariadb');
+const maria = require('../database/connect/mariadb');
+maria.connect();
 
 // maria.queryreturn("show tables;").then(value=> {console.log(value)})
+
 
 const { Configuration, OpenAIApi } = require("openai");
 
 const configiration = new Configuration({
+  // organization:or_db,
+  //   apiKey: key_db
     organization:process.env.OPEN_API_KEY_OR,
     apiKey: process.env.OPEN_API_KEY
 });
 
 console.log('<<--- Hello Node.js ---->>');
 console.log('*- openai api tutorial...');
+
+
 
 const openai = new OpenAIApi(configiration);
 const data_schema = {
@@ -142,9 +149,6 @@ const runGPT35 = async (prompt) => {
       frequency_penalty : 0.0,
       presence_penalty: 0.0,
       max_tokens : 1000,
-      headers:
-       { Authorization: `Bearer +${process.env.OPENAI_API_KEY}`}
-  
       
   });
   var output_schema = response.data.choices[0].message.function_call.arguments;
@@ -157,8 +161,7 @@ const runGPT35_t = async (prompt) => {
   const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
-      headers:
-      { Authorization: `Bearer +${process.env.OPENAI_API_KEY}`}
+    
   });
   return response.data.choices[0].message.content;
 };
@@ -212,6 +215,8 @@ router.post('/login', async function(req, res){
 
 router.get("/ask/report", async (req, res) => {
   try{
+    console.log(process.env.OPENAI_API_KEY);
+    console.log(process.env.OPENAI_API_KEY_OR);
     var gender = req.query.gender;
     var age = req.query.age;
     var job = req.query.job;
@@ -224,7 +229,7 @@ router.get("/ask/report", async (req, res) => {
       세부 목표를 4개씩 한글로 json형태로 생성해줘`;
   
       console.log(propmt_sentence);
-      const response = await runGPT35_b(propmt_sentence);
+      const response = await runGPT35(propmt_sentence);
       const response_s = response.content;
   
         if (response) {
@@ -232,10 +237,10 @@ router.get("/ask/report", async (req, res) => {
           res.setHeader('Access-Control-Allow-origin', "http://localhost:3000");
           // res.setHeader('Access-Control-Allow-origin', "http://localhost:3000","https://ggumtle.vercel.app");
           res.setHeader('Access-Control-Allow-Credentials', true); // 쿠키 주고받기 허용
-          res.send(user);
+          res.json(user);
           //res.json(user);
-          console.log(user.BucketList.MainKeyword1.Value)
-          console.log(user.BucketList.MainKeyword1.Details.Detail1)
+         // console.log(user.BucketList.MainKeyword1.Value)
+         // console.log(user.BucketList.MainKeyword1.Details.Detail1)
           // console.log(response_s.BucketList.MainKeyword1.Value);
           // console.log(response_s.BucketList.MainKeyword1.Details.Detail1);
   
@@ -251,7 +256,10 @@ router.get("/ask/report", async (req, res) => {
 );
 
 router.get("/ask/translate", async (req, res) => {
-  try{var gender = req.query.gender;
+  try{
+    console.log(process.env.OPENAI_API_KEY);
+    console.log(process.env.OPENAI_API_KEY_OR);
+    var gender = req.query.gender;
     //var age = req.body.age;
     //var job = req.body.job;
     var bucket = req.query.bucket;
