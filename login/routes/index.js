@@ -200,17 +200,19 @@ router.post('/login', async function(req, res){
 
 
 router.get("/ask/report", async (req, res) => {
-  try{var gender = req.gender;
-    var age = req.age;
-    var job = req.job;
-    var bucket = req.bucket;
-  
+  try{
+    var gender = req.query.gender;
+    var age = req.query.age;
+    var job = req.query.job;
+    var bucket = req.query.bucket;
+
       var propmt_sentence = 
       `직업: '${job}', 나이: '${age}',
       성별:'${gender}' 버킷리스트: '${bucket}'버킷리스트를 이루기 위해 
       필요한 메인 키워드 4개와 각각의 메인 키워드를 이루기 위한 
       세부 목표를 4개씩 한글로 json형태로 생성해줘`;
   
+      console.log(propmt_sentence);
       const response = await runGPT35(propmt_sentence);
       const response_s = response.content;
   
@@ -238,10 +240,10 @@ router.get("/ask/report", async (req, res) => {
 );
 
 router.get("/ask/translate", async (req, res) => {
-  try{var gender = req.gender;
+  try{var gender = req.query.gender;
     //var age = req.body.age;
     //var job = req.body.job;
-    var bucket = req.bucket;
+    var bucket = req.query.bucket;
   
     
     const allowedOrigins = ["http://localhost:3000, https://ggumtle.vercel.app"];
